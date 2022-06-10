@@ -33,6 +33,7 @@ jobs:
         
       - name: Run msbuild -version
         run: msbuild -version
+        continue-on-error: true        
         
       - if: matrix.os == 'windows-latest' 
         uses: engineerd/configurator@v0.0.1
