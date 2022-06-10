@@ -54,4 +54,4 @@ jobs:
       - if: matrix.os == 'windows-latest'
         name: Check NuGet Version On Windows
         shell: powershell
-        run: nuget help | select -First 1
+        run: nuget help || select -First 1
