@@ -33,7 +33,7 @@ jobs:
         
         #MS Build is installed on windows, just not on the path :\ - https://github.com/actions/virtual-environments/blob/main/images/win/Windows2022-Readme.md#net-framework
       - if: matrix.os == 'windows-latest'
-        name: Add msbuild to PATH
+        name: Add msbuild to PATH On Windows
         uses: microsoft/setup-msbuild@v1.1      
         
       - name: Run msbuild -version
@@ -44,9 +44,15 @@ jobs:
         #Official way to get installed full frameworks: https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed
         #NOTE: this is doc'd @ github: https://github.com/actions/virtual-environments/blob/main/images/win/Windows2022-Readme.md#net-framework
       - if: matrix.os == 'windows-latest'
-        name: Check .NET Framework Runtimes
+        name: Check .NET Framework Runtimes On Windows
         shell: powershell
         run: |
           Install-Module -Name DotNetVersionLister -Scope CurrentUser -Force 
           #Import-Module DotNetVersionLister
           Get-STDotNetVersion
+          
+      - if: matrix.os == 'windows-latest'
+        name: Check NuGet Version On Windows
+        shell: powershell
+        run: |
+          nuget help | select -First 1
