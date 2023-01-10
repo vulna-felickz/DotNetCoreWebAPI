@@ -23,6 +23,10 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+      #These env vars are used in NuGet.config: https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file#packagesourcecredentials
+      env:
+          NUGET_USER: ado-doesnt-matter-uses-pat
+          NUGET_TOKEN: ${{ secrets.VULNA_FELICKZ2_FEED }}
     - name: Build
       run: dotnet build --no-restore
     - name: Test
