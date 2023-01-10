@@ -53,5 +53,6 @@ jobs:
           
       - if: matrix.os == 'windows-latest'
         name: Check NuGet Version On Windows
+        continue-on-error: true
         shell: powershell
-        run: nuget help | select -First 1
+        run: Invoke-Command -ScriptBlock {nuget help} | Select -First 1
