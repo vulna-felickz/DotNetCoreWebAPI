@@ -30,6 +30,19 @@ jobs:
 
       - name: Run dotnet --info
         run: dotnet --info
+
+      - if: matrix.os == 'windows-latest'
+        name: Check Logical cores on Windows
+        shell: powershell
+        run: (Get-WmiObject -Class Win32_Processor).NumberOfLogicalProcessors
+
+      - if: matrix.os == 'ubuntu-latest'
+        name: Check Logical cores on ubuntu
+        run: nproc
+
+      - if: matrix.os == 'macos-latest'
+        name: Check Logical cores on MAC  
+        run: sysctl -n hw.logicalcpu
         
         #MS Build is installed on windows, just not on the path :\ - https://github.com/actions/virtual-environments/blob/main/images/win/Windows2022-Readme.md#net-framework
       - if: matrix.os == 'windows-latest'
