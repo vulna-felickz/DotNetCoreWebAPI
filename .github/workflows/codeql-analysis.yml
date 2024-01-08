@@ -20,6 +20,9 @@ on:
   schedule:
     - cron: '36 0 * * 2'
 
+env:
+  CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS: true
+
 jobs:
   analyze:
     name: Analyze
