@@ -22,6 +22,7 @@ on:
 
 env:
   CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS: true
+  CODEQL_EXTRACTOR_CSHARP_STANDALONE_EXTRACT_WEB_VIEWS: true # will default true in 2.16.2
 
 jobs:
   analyze:
