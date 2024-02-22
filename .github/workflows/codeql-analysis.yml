@@ -19,6 +19,7 @@ on:
     branches: [ "master" ]
   schedule:
     - cron: '36 0 * * 2'
+  workflow_dispatch:
 
 env:
   CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS: true
@@ -39,6 +40,10 @@ jobs:
         language: [ 'csharp' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+    #These env vars are used in NuGet.config: https://learn.microsoft.com/en-us/nuget/reference/nuget-config-file#packagesourcecredentials
+    env:
+      NUGET_USER: ado-doesnt-matter-uses-pat
+      NUGET_TOKEN: ${{ secrets.VULNA_FELICKZ2_FEED }}
 
     steps:
     - name: Checkout repository
