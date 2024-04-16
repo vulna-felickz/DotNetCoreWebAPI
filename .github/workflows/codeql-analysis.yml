@@ -20,7 +20,7 @@ on:
     - cron: '27 11 * * 5'
     
 
-env:
+#env:
   #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK: 'true'
   #OLD - we now use new build-mode input!
   #CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS: true
