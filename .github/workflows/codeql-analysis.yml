@@ -20,9 +20,9 @@ on:
     - cron: '27 11 * * 5'
     
 
-env:
+#env:
   #Controls whether to check the responsiveness of NuGet feeds.
-  CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK: 'true'
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK: 'true'
 
   ##OTHER OPTIONS##
   #################
