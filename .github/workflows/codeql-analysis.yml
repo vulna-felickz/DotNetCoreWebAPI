@@ -107,7 +107,7 @@ jobs:
         # https://github.com/github/codeql-action/releases
         CODEQL_CLI_LATEST=$(get_latest_release)
         CODEQL_CLI_RELEASE_URL="https://github.com/github/codeql-action/releases/download/$CODEQL_CLI_LATEST/codeql-bundle-linux64.tar.gz"
-        echo "LATEST=CODEQL_CLI_RELEASE_URL" >> "$GITHUB_OUTPUT"      
+        echo "LATEST=$CODEQL_CLI_RELEASE_URL" >> "$GITHUB_OUTPUT"      
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
