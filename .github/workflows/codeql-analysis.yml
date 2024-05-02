@@ -45,7 +45,7 @@ env:
 
   #Specifies the NuGet feeds to use for fallback Nuget dependency fetching. The value is a space-separated list of feed URLs.
   #The default value is `https://api.nuget.org/v3/index.json`.
-  CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_FALLBACK: "https://pkgs.dev.azure.com/felickz2/_packaging/felickz2/nuget/v3/index.json"
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_FALLBACK: "https://pkgs.dev.azure.com/felickz2/_packaging/felickz2/nuget/v3/index.json"
   
   #OLD - we now use new build-mode input!
   #CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS: true
