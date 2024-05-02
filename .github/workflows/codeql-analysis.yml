@@ -90,6 +90,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Run dotnet nuget list source
+      run: |
+        dotnet nuget list source      
+
     - name: CodeQL Latest
       id: codeql-version
       run: | 
