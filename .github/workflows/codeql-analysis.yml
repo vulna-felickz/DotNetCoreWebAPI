@@ -92,7 +92,17 @@ jobs:
 
     - name: Run dotnet nuget list source BEFORE
       run: |
-        dotnet nuget list source      
+        dotnet nuget list source
+
+
+    - name: Run dotnet nuget remove source nuget.org
+      run: |
+        dotnet nuget remove source "nuget.org"
+
+
+    - name: Run dotnet nuget list source AFTER REMOVE
+      run: |
+        dotnet nuget list source        
 
     - name: CodeQL Latest
       id: codeql-version
@@ -152,6 +162,6 @@ jobs:
       with:
         category: "/language:${{matrix.language}}"
 
-    - name: Run dotnet nuget list source AFTER
+    - name: Run dotnet nuget list source AFTER CODEQL
       run: |
         dotnet nuget list source     
