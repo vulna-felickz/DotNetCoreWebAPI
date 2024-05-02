@@ -90,7 +90,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Run dotnet nuget list source
+    - name: Run dotnet nuget list source BEFORE
       run: |
         dotnet nuget list source      
 
@@ -151,3 +151,7 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
+    - name: Run dotnet nuget list source AFTER
+      run: |
+        dotnet nuget list source     
