@@ -74,8 +74,8 @@ jobs:
     # - name: add nuget auth
     #   run: dotnet nuget add source https://pkgs.dev.azure.com/felickz2/_packaging/felickz2/nuget/v3/index.json -n "GitHub" -u USERNAME -p "${{ secrets.VULNA_FELICKZ2_FEED }}" --store-password-in-clear-text
 
-    # - name: update nuget auth
-    #   run: dotnet nuget update source "felickz2" --source "https://pkgs.dev.azure.com/felickz2/_packaging/felickz2/nuget/v3/index.json" -u USERNAME -p "${{ secrets.VULNA_FELICKZ2_FEED }}" --store-password-in-clear-text
+    - name: update nuget auth
+      run: dotnet nuget update source "felickz2" --source "https://pkgs.dev.azure.com/felickz2/_packaging/felickz2/nuget/v3/index.json" -u USERNAME -p "${{ secrets.VULNA_FELICKZ2_FEED }}" --store-password-in-clear-text
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
