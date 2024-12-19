@@ -1,4 +1,4 @@
-DotNetCoreWebAPI [![CodeQL](https://github.com/vulna-felickz/DotNetCoreWebAPI/workflows/CodeQL/badge.svg)](https://github.com/vulna-felickz/DotNetCoreWebAPI/actions?query=workflow:"CodeQL")
+DotNetCoreWebAPI [![CodeQL](https://github.com/vulna-felickz/DotNetCoreWebAPI/workflows/CodeQL/badge.svg)](https://github.com/vulna-felickz/DotNetCoreWebAPI/actions?query=workflow:"CodeQL Advanced (autobuild)")
 
 This repo is intentionally not able to download dependencies from Azure Artifacts from package registry that requires authentication
 - [nuget.config](https://github.com/vulna-felickz/DotNetCoreWebAPI/blob/master/nuget.config#L5)
