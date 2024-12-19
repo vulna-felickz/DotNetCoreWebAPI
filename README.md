@@ -1,6 +1,9 @@
 DotNetCoreWebAPI [![CodeQL](https://github.com/vulna-felickz/DotNetCoreWebAPI/workflows/CodeQL/badge.svg)](https://github.com/vulna-felickz/DotNetCoreWebAPI/actions?query=workflow:"CodeQL")
 
-- This repo is intentionally not able to download dependenceis from package registry to test failure scenarios with Code Scanning
+This repo is intentionally not able to download dependencies from Azure Artifacts from package registry that requires authentication
+- [nuget.config](https://github.com/vulna-felickz/DotNetCoreWebAPI/blob/master/nuget.config#L5)
+
+Testing failure scenarios with Code Scanning
   - [CodeQL AutoBuild (fails)](https://github.com/vulna-felickz/DotNetCoreWebAPI/actions/workflows/codeql-autobuild.yml)
   - [CodeQL Build Mode None (partial success)](https://github.com/vulna-felickz/DotNetCoreWebAPI/actions/workflows/codeql-analysis.yml)
   - [CodeQL Build Mode None - Default Setup + Global Private Registry Configuration (success) ](https://github.com/vulna-felickz/DotNetCoreWebAPI/actions/workflows/github-code-scanning/codeql)
