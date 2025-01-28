@@ -10,7 +10,6 @@ Testing failure scenarios with Code Scanning
 
 
 
-
 ## Setup Private Registry 
 
 ![image](https://github.com/user-attachments/assets/d2b0cef4-21a5-4f69-b8f0-79003b6593da)
