@@ -20,8 +20,35 @@ on:
     - cron: '27 11 * * 5'
   workflow_dispatch:
     
-#OLD - we now use new build-mode input!
-#env:
+
+env:
+  #Controls whether to check the responsiveness of NuGet feeds.
+  CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK: 'true'
+
+  ##OTHER OPTIONS##
+  #################
+  #Specifies the NuGet feeds to exclude from the responsiveness check. The value is a space-separated list of feed URLs.
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK_EXCLUDED: "url url"
+
+  #Specifies the timeout (as an integer) in milliseconds for the initial check of NuGet feeds responsiveness. The value is then doubled for each subsequent check.
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK_TIMEOUT: 1000
+
+  #Specifies the timeout (as an integer) in milliseconds for the initial check of fallback NuGet feeds responsiveness. The value is then doubled for each subsequent check.
+  #This is primarily used in testing.
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK_FALLBACK_TIMEOUT: 2000
+
+  #Specifies how many requests to make to the NuGet feeds to check their responsiveness.
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK_LIMIT: 3
+
+  #Specifies how many requests to make to the fallback NuGet feeds to check their responsiveness.
+  #This is primarily used in testing.
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_CHECK_FALLBACK_LIMIT: 3
+
+  #Specifies the NuGet feeds to use for fallback Nuget dependency fetching. The value is a space-separated list of feed URLs.
+  #The default value is `https://api.nuget.org/v3/index.json`.
+  #CODEQL_EXTRACTOR_CSHARP_BUILDLESS_NUGET_FEEDS_FALLBACK: "https://pkgs.dev.azure.com/felickz2/_packaging/felickz2/nuget/v3/index.json"
+  
+  #OLD - we now use new build-mode input!
   #CODEQL_EXTRACTOR_CSHARP_OPTION_BUILDLESS: true
   #CODEQL_EXTRACTOR_CSHARP_STANDALONE_EXTRACT_WEB_VIEWS: true # will default true in 2.16.2
 
@@ -64,12 +91,51 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Run dotnet nuget list source BEFORE
+      run: |
+        dotnet nuget list source
+
+
+    - name: Run dotnet nuget remove source nuget.org
+      run: |
+        dotnet nuget remove source "nuget.org"
+
+
+    - name: Run dotnet nuget list source AFTER REMOVE
+      run: |
+        dotnet nuget list source        
+
+    - name: CodeQL Latest
+      id: codeql-version
+      run: | 
+        get_latest_release() {
+          # https://gist.github.com/lukechilds/a83e1d7127b78fef38c2914c4ececc3c
+          curl --silent "https://api.github.com/repos/github/codeql-action/releases/latest" |
+            grep '"tag_name":' |
+            sed -E 's/.*"([^"]+)".*/\1/'
+        }
+        
+        CODEQL_BIN_PATH="/codeql"
+        CODEQL_CLI_ARCHIVE="/codeql/codeql.tar.gz"
+        CODEQL_CLI_PATH="$CODEQL_BIN_PATH/bin/codeql"
+        
+        # https://github.com/github/codeql-action/releases
+        CODEQL_CLI_LATEST=$(get_latest_release)
+        CODEQL_CLI_RELEASE_URL="https://github.com/github/codeql-action/releases/download/$CODEQL_CLI_LATEST/codeql-bundle-linux64.tar.gz"
+        echo "LATEST=$CODEQL_CLI_RELEASE_URL"
+        echo "LATEST=$CODEQL_CLI_RELEASE_URL" >> "$GITHUB_OUTPUT"      
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
+        tools: latest
+        #C# Buildless nuget timeout fix -  URL of CodeQL bundle pre-release from: https://github.com/dsp-testing/codeql-cli-nightlies/releases                
+        #tools: https://github.com/dsp-testing/codeql-cli-nightlies/releases/download/codeql-bundle-20240425/codeql-bundle-linux64.tar.gz
+        #tools: ${{ steps.codeql-version.outputs.LATEST }}
+        
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
@@ -96,3 +162,7 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
+    - name: Run dotnet nuget list source AFTER CODEQL
+      run: |
+        dotnet nuget list source     
