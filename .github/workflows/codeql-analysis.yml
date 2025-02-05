@@ -64,10 +64,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - run: |
-        ${{ secrets.GITHUB_REGISTRIES_PROXY }} | base64
-
-
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
