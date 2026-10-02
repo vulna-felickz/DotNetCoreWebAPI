@@ -31,4 +31,4 @@ jobs:
         run: dotnet restore
 
       - name: Component Detection Snapshot Dependency Submission
-        uses: advanced-security/component-detection-dependency-submission-action@v0.1.0
+        uses: advanced-security/component-detection-dependency-submission-action@v0.2.0
